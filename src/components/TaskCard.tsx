@@ -14,6 +14,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const handleOptionClick = async (optionId: number) => {
     if (isSubmitting) return;
 
+    if (answerResult) {
+      setAnswerResult(null);
+    }
+
     setSelectedOptionId(optionId);
     setIsSubmitting(true);
 
@@ -44,7 +48,7 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
             : 'bg-red-50 border-red-300 shadow-lg scale-105'
         }`;
       }
-      return `${baseClasses} bg-primary-light border-primary shadow-md hover:shadow-lg`;
+      return `${baseClasses} bg-blue-50 border-blue-300 shadow-md`;
     }
 
     if (answerResult && option.isCorrect) {
