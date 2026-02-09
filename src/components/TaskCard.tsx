@@ -39,11 +39,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
   const getOptionClasses = (option: Option) => {
     const baseClasses =
       'px-6 py-4 rounded-lg border-2 transition-all duration-200 cursor-pointer text-left';
-    
+
     if (selectedOptionId === option.id) {
       if (answerResult) {
         return `${baseClasses} ${
-          answerResult.isCorrect && option.isCorrect
+          answerResult.isCorrect
             ? 'bg-primary-light border-primary shadow-lg scale-105'
             : 'bg-red-50 border-red-300 shadow-lg scale-105'
         }`;
@@ -51,8 +51,8 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
       return `${baseClasses} bg-blue-50 border-blue-300 shadow-md`;
     }
 
-    if (answerResult && option.isCorrect) {
-      return `${baseClasses} bg-primary-light border-primary shadow-md`;
+    if (answerResult) {
+      return `${baseClasses} bg-white border-gray-200 opacity-60 hover:opacity-80`;
     }
 
     return `${baseClasses} bg-white border-gray-200 hover:border-primary hover:shadow-md`;
@@ -76,12 +76,10 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
               {selectedOptionId === option.id && answerResult && (
                 <span
                   className={`ml-4 text-2xl transition-transform duration-200 ${
-                    answerResult.isCorrect && option.isCorrect
-                      ? 'text-green-600'
-                      : 'text-red-600'
+                    answerResult.isCorrect ? 'text-green-600' : 'text-red-600'
                   }`}
                 >
-                  {answerResult.isCorrect && option.isCorrect ? '✓' : '✗'}
+                  {answerResult.isCorrect ? '✓' : '✗'}
                 </span>
               )}
             </div>
