@@ -1,10 +1,11 @@
 export interface Option {
-  id: number;
+  id?: number;
   text: string;
+  isCorrect?: boolean;
 }
 
 export interface Task {
-  id: number;
+  id?: number;
   instruction: string;
   options: Option[];
 }

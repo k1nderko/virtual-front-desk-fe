@@ -47,4 +47,22 @@ export const submitAnswer = async (
   return response.data;
 };
 
+export const adminGetTask = async (): Promise<Task[]> => {
+  const response = await api.get<Task[]>('/admin/tasks');
+  return response.data;
+};
+export const adminCreateTask = async (task: Task): Promise<Task> => {
+  const response = await api.post<Task>('/admin/tasks', task);
+  return response.data;
+};
+export const adminUpdateTask = async (task: Task): Promise<Task> => {
+  if (task.id == null) throw new Error('Task id required for update');
+  const response = await api.put<Task>(`/admin/tasks/${task.id}`, task);
+  return response.data;
+};
+export const adminDeleteTask = async (taskId: number): Promise<void> => {
+  await api.delete(`/admin/tasks/${taskId}`);
+};
+
+
 export default api;
