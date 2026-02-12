@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Task, Option } from '../types';
+import { Task, OptionForm } from '../types';
 import {
   adminGetTask,
   adminCreateTask,
@@ -7,7 +7,7 @@ import {
   adminDeleteTask,
 } from '../services/api';
 
-const emptyTask = (): { instruction: string; options: Option[] } => ({
+const emptyTask = (): { instruction: string; options: OptionForm[] } => ({
   instruction: '',
   options: [{ text: '', isCorrect: false }],
 });
@@ -52,6 +52,7 @@ const AdminApp: React.FC = () => {
       options:
         task.options && task.options.length > 0
           ? task.options.map((o) => ({
+              id: o.id,
               text: o.text,
               isCorrect: !!o.isCorrect,
             }))
@@ -99,12 +100,12 @@ const AdminApp: React.FC = () => {
         await adminUpdateTask({
           id: editingTask.id,
           instruction: form.instruction.trim(),
-          options,
+          options: options.map((o) => ({ text: o.text, isCorrect: o.isCorrect, id: o.id })),
         });
       } else {
         await adminCreateTask({
           instruction: form.instruction.trim(),
-          options: options.length ? options : [],
+          options: options.map((o) => ({ text: o.text, isCorrect: o.isCorrect })),
         });
       }
       await loadTasks();
@@ -189,7 +190,7 @@ const AdminApp: React.FC = () => {
                     <span className="text-sm text-gray-600">Удалить?</span>
                     <button
                       type="button"
-                      onClick={() => handleDelete(task.id!)}
+                      onClick={() => handleDelete(task.id)}
                       className="px-3 py-1.5 text-sm font-medium text-white bg-red-600 rounded-lg hover:bg-red-700"
                     >
                       Да
@@ -205,7 +206,7 @@ const AdminApp: React.FC = () => {
                 ) : (
                   <button
                     type="button"
-                    onClick={() => setDeleteConfirmId(task.id!)}
+                    onClick={() => setDeleteConfirmId(task.id)}
                     className="px-3 py-1.5 text-sm font-medium text-red-600 bg-red-50 rounded-lg hover:bg-red-100"
                   >
                     Удалить

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Task, AnswerResult } from '../types';
+import { Task, TaskCreate, TaskUpdate, AnswerResult } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || '/api';
 
@@ -51,12 +51,11 @@ export const adminGetTask = async (): Promise<Task[]> => {
   const response = await api.get<Task[]>('/admin/tasks');
   return response.data;
 };
-export const adminCreateTask = async (task: Task): Promise<Task> => {
+export const adminCreateTask = async (task: TaskCreate): Promise<Task> => {
   const response = await api.post<Task>('/admin/tasks', task);
   return response.data;
 };
-export const adminUpdateTask = async (task: Task): Promise<Task> => {
-  if (task.id == null) throw new Error('Task id required for update');
+export const adminUpdateTask = async (task: TaskUpdate): Promise<Task> => {
   const response = await api.put<Task>(`/admin/tasks/${task.id}`, task);
   return response.data;
 };

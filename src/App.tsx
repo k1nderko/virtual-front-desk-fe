@@ -62,7 +62,7 @@ const HomePage: React.FC = () => {
           <p className="text-gray-600">No tasks available.</p>
         </div>
       ) : (
-        tasks.map((task) => <TaskCard key={task.id} task={task as Task} />)
+        tasks.map((task) => <TaskCard key={task.id} task={task} />)
       )}
     </main>
   );
